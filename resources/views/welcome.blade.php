@@ -448,10 +448,10 @@
         }
         
         async function updateAircraft() {
-            const res = await fetch('/plane.json');
+            const res = await fetch('https://opensky-network.org/api/states/all');
             const data = await res.json();
             
-            data.states = data.states.slice(0, 100);
+            // data.states = data.states.slice(0, 100);
             
             const currentAircraft = new Set();
             
