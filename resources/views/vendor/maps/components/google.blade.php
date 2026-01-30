@@ -23,14 +23,20 @@ class='{{ $attributes["class"] }}'
 ></script>
 
 <script>
-    let map{{$mapId}} = "";  
+    // Initialize global maps object if it doesn't exist
+    if (!window.maps) {
+        window.maps = {};
+    }
 
     function initMap{{$mapId}}() {
-        map{{$mapId}} = new google.maps.Map(document.getElementById("{{$mapId}}"), {
+        // Store map in global window.maps object
+        window.maps['{{$mapId}}'] = new google.maps.Map(document.getElementById("{{$mapId}}"), {
             center: { lat: {{$centerPoint['lat'] ?? $centerPoint[0]}}, lng: {{$centerPoint['long'] ?? $centerPoint[1]}} },
             zoom: {{$zoomLevel}},
-            mapTypeId: '{{$mapType}}'
+            mapTypeId: '{{$mapType}}',
         });
+
+        let map{{$mapId}} = window.maps['{{$mapId}}']; // Keep local reference for backwards compatibility
 
     function addInfoWindow(marker, message) {
 
@@ -57,7 +63,7 @@ class='{{ $attributes["class"] }}'
             @if(isset($marker['title']))
             title: "{{ $marker['title'] }}",
             @endif
-            icon: @if(isset($marker['icon']))"{{ $marker['icon']}}" @else null @endif
+            icon: @if(isset($marker['icon']))"{{ $marker['icon']}}" @else '/icons/plane.png' @endif
         });
 
         @if(isset($marker['info']))
