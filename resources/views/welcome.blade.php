@@ -9,11 +9,304 @@
         let map;
         let aircraftMarkers = {};
         let selectedAircraftId = null;
+
+
         
         function initAircraftTracker() {
             map = window.maps?.['aircrafMap'];
+
+            map.setOptions({
+                zoomControl: false,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                rotateControl: false,
+                fullscreenControl: false,
+                styles: [
+            {
+                "featureType": "all",
+                "elementType": "labels.text",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "all",
+                "elementType": "labels.icon",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative",
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative",
+                "elementType": "labels.icon",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape.man_made",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "saturation": "58"
+                    },
+                    {
+                        "visibility": "on"
+                    },
+                    {
+                        "lightness": "0"
+                    },
+                    {
+                        "hue": "#ff8300"
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape.man_made",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "lightness": "0"
+                    },
+                    {
+                        "weight": "1"
+                    },
+                    {
+                        "visibility": "on"
+                    },
+                    {
+                        "saturation": "0"
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape.man_made",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "visibility": "on"
+                    },
+                    {
+                        "color": "#c2bdb9"
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape.natural",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#97ca65"
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape.natural.terrain",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "saturation": "0"
+                    },
+                    {
+                        "lightness": "0"
+                    },
+                    {
+                        "color": "#e1d5c1"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "labels",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "labels.icon",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi.business",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi.medical",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#fbd3da"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi.park",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#97ca67"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi.park",
+                "elementType": "labels.text",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#ffffff"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "labels",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "labels.icon",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#ffffff"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "color": "#efd151"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.arterial",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#ffffff"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.local",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "black"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit.station",
+                "elementType": "labels",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit.station.airport",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#cfb2db"
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#25aab7"
+                    }
+                ]
+            }
+        ]
+            });
+
             updateAircraft();
-            setInterval(updateAircraft, 60000);
+            setInterval(updateAircraft, 10000);
         }
         
         document.addEventListener("DOMContentLoaded", () => {
@@ -59,6 +352,7 @@
         }
 
         function showFlightDetails(state, id) {
+            const previouslySelected = selectedAircraftId;
             selectedAircraftId = id;
             
             const callsign = state[1]?.trim() || 'Unknown';
@@ -71,12 +365,13 @@
             const speed = state[9] ? Math.round(state[9] * 3.6) : 0;
             const heading = state[10] ? Math.round(state[10]) : 0;
             const verticalRate = state[11] ? state[11].toFixed(1) : '0.0';
+            const lastContact = state[9] ? Math.round(state[9] / 60) : "Unknown";
             
             const sidebar = document.getElementById('sidebar');
             const detailsContent = document.getElementById('details-content');
             
             detailsContent.innerHTML = `
-                <!-- Header -->
+                
                 <div class="bg-gray-900 text-white p-6">
                     <div class="text-sm text-gray-400 mb-1">
                         ${onGround ? 'On Ground' : 'Airborne'} • ${originCountry}
@@ -86,7 +381,7 @@
                 </div>
                 
                 <div class="p-6 space-y-6">
-                    <!-- Main Stats -->
+                   
                     <div>
                         <h3 class="text-xs font-semibold text-gray-500 uppercase mb-3">Flight Data</h3>
                         <div class="space-y-4">
@@ -109,10 +404,15 @@
                                 <div class="text-sm text-gray-600 mb-1">Vertical Rate</div>
                                 <div class="text-2xl font-bold text-gray-900">${verticalRate} <span class="text-sm font-normal text-gray-500">m/s</span></div>
                             </div>
+
+                            <div>
+                                <div class="text-sm text-gray-600 mb-1">Last contacted:</div>
+                                <div class="text-2xl font-bold text-gray-900">${lastContact}<span class="text-sm font-normal text-gray-500">Min</span></div>
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- Position Info -->
+                    
                     <div>
                         <h3 class="text-xs font-semibold text-gray-500 uppercase mb-3">Position</h3>
                         <div class="space-y-3">
@@ -132,12 +432,19 @@
             sidebar.classList.add('translate-x-0');
             sidebar.classList.remove('-translate-x-full');
             
-           Object.keys(aircraftMarkers).forEach(markerId => {
-                const marker = aircraftMarkers[markerId];
-                const markerHeading = marker.stateData[10];
-                const isSelected = markerId === id;
-                marker.setIcon(getPlaneIcon(markerHeading, isSelected));
-           });
+            
+            if (previouslySelected && aircraftMarkers[previouslySelected]) {
+                const prevMarker = aircraftMarkers[previouslySelected];
+                const prevHeading = prevMarker.stateData[10];
+                prevMarker.setIcon(getPlaneIcon(prevHeading, false));
+            }
+
+            
+            if (aircraftMarkers[id]) {
+                const currentMarker = aircraftMarkers[id];
+                const currentHeading = currentMarker.stateData[10];
+                currentMarker.setIcon(getPlaneIcon(currentHeading, true));
+            }
         }
         
         async function updateAircraft() {
@@ -203,10 +510,11 @@
 <div class="w-full h-screen">
     <x-maps-google 
         id="aircrafMap"
-        :mapType="'hybrid'"
+        :mapType="'roadmap'"
         :markers="[]"            
         :centerToBoundsCenter="false"
         :zoomLevel="4"
+        :disableDefaultUI="true"
     ></x-maps-google>
 </div>
 
